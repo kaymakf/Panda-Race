@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LoginTextColorGradient
   m_EditorClassIdentifier: 
   colorMode: 2
-  topLeft: {r: 1, g: 0, b: 0.39407206, a: 1}
-  topRight: {r: 1, g: 0, b: 0.39407206, a: 1}
-  bottomLeft: {r: 1, g: 0.5330188, b: 0.96836936, a: 1}
-  bottomRight: {r: 1, g: 0.5330188, b: 0.96836936, a: 1}
+  topLeft: {r: 0, g: 1, b: 0.25909448, a: 1}
+  topRight: {r: 0, g: 1, b: 0.25909448, a: 1}
+  bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+  bottomRight: {r: 1, g: 1, b: 1, a: 1}
