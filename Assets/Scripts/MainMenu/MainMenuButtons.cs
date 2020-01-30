@@ -26,8 +26,8 @@ public class MainMenuButtons : MonoBehaviour
 
     public void OnLogOut()
     {
+        ServerConnection.Instance.Socket?.CloseAsync();
         SceneManager.LoadScene("Login");
-
     }
 
     public void OnPlay()
