@@ -30,8 +30,15 @@ public class MainMenuButtons : MonoBehaviour
         SceneManager.LoadScene("Login");
     }
 
-    public void OnPlay()
-    {
-        SceneManager.LoadScene("Game");
+    public void OnPlay() {
+        ServerConnection.Instance.Socket.AddMatchmakerAsync("*", 2, 2);
+        ServerConnection.Instance.Socket.ReceivedMatchmakerMatched += async matched => {
+            Debug.LogFormat("Received: {0}", matched);
+            await ServerConnection.Instance.Socket.JoinMatchAsync(matched);
+            
+            SceneManager.LoadScene("Game");
+        };
+        
+        
     }
 }
