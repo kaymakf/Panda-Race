@@ -4,12 +4,19 @@ using UnityEngine;
 using Nakama;
 
 public class ServerConnection : MonoBehaviour {
+	private const string Host = "ec2-18-185-120-205.eu-central-1.compute.amazonaws.com";
+	private const int Port = 9000;
+	
 	public int LoginType { get; set; }
 	public const int LoginTypeDeviceId = 0;
 	public const int LoginTypeFacebook = 1;
 
 	private const string SessionPrefName = "pandarace.session";
 	private const string SingletonName = "/[ServerConnection]";
+
+	private const string SocketServerKey = "2r5u8x/A?D*G-KaPdSgVkYp3s6v9y$B&";
+	private const string SessionEncryptionKey = "G-KaPdSgVkYp3s6v9y$B?E(H+MbQeThW";
+	private const string RuntimeHttpKey = "!z%C*F-JaNdRgUkXp2s5u8x/A?D(G+Kb";
 
 	private static readonly object Lock = new object();
 	private static ServerConnection _instance;
@@ -40,15 +47,18 @@ public class ServerConnection : MonoBehaviour {
 	public Task<ISession> Session { get; private set; }
 
 	private ServerConnection() {
-		Client = new Client("http", "127.0.0.1", 7350, "defaultkey") {
+		Client = new Client("http", Host, Port, SocketServerKey) {
 #if UNITY_EDITOR
 			Logger = new UnityLogger()
 #endif
 		};
 		Socket = Client.NewSocket();
+		Socket.Closed += () => Debug.Log("Socket closed.");
+		Socket.Connected += () => Debug.Log("Socket connected.");
+		Socket.ReceivedError += e => Debug.LogErrorFormat("Socket error: {0}", e.Message);
 	}
 
-	public Task<ISession> Authenticate() {
+	private Task<ISession> Authenticate() {
 		switch (LoginType) {
 			case LoginTypeDeviceId:
 				const string deviceIdPrefName = "deviceid";
@@ -68,7 +78,7 @@ public class ServerConnection : MonoBehaviour {
 		// Restore session or create a new one.
 		var authToken = PlayerPrefs.GetString(SessionPrefName);
 		var session = Nakama.Session.Restore(authToken);
-		var expiredDate = DateTime.UtcNow.AddDays(-1);
+		var expiredDate = DateTime.UtcNow;
 		if (session == null || session.HasExpired(expiredDate)) {
 			var sessionTask = Authenticate();
 			Session = sessionTask;
