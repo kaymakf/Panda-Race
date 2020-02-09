@@ -4,7 +4,7 @@ using UnityEngine;
 using Nakama;
 
 public class ServerConnection : MonoBehaviour {
-	private const string Host = "ec2-18-185-120-205.eu-central-1.compute.amazonaws.com";
+	private const string Host = "ec2-52-57-140-254.eu-central-1.compute.amazonaws.com";
 	private const int Port = 9000;
 	
 	public int LoginType { get; set; }
