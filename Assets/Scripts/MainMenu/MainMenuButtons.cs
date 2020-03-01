@@ -4,23 +4,23 @@ using UnityEngine.SceneManagement;
 using DG.Tweening;
 using UnityEngine.UI;
 
-public class MainMenuButtons : MonoBehaviour {
+public class MainMenuButtons : UIScene {
 	public GameObject OptionsMenuObject;
-	public Image Fade;
-	
-	private bool isMatchReady = false;
+	public GameObject FindingMatchDialog;
+
+    private ServerConnection Connection;
+	private ServerConnection.Matchmaker Matchmaker;
 
 	void Start() {
-		var fadeAnim = Fade.DOFade(1, .5f).From().SetEase(Ease.Linear);
-		fadeAnim.onComplete = () => Fade.gameObject.SetActive(false);
-		
-		gameObject.transform.DOMoveY(-2, .5f).From().SetEase(Ease.InSine);
+		Connection = ServerConnection.Instance;
+		Matchmaker = Connection.matchmaker;
+
+		EnterScene();
 	}
 
-	// Update is called once per frame
 	void Update() {
-		if (isMatchReady)
-			SceneManager.LoadSceneAsync("Game");
+		if (Matchmaker != null && Matchmaker.IsMatchReady)
+			ExitScene("Game");
 	}
 
 	public void OnOptions() {
@@ -29,20 +29,17 @@ public class MainMenuButtons : MonoBehaviour {
 	}
 
 	public void OnLogOut() {
-		ServerConnection.Instance.Socket?.CloseAsync();
-		SceneManager.LoadScene("Login");
+		Connection.Socket?.CloseAsync();
+		ExitScene("Login");
 	}
 
 	public void OnPlay() {
-		ServerConnection.Instance.Socket.AddMatchmakerAsync("*", 2, 2);
-		ServerConnection.Instance.Socket.ReceivedMatchmakerMatched += async matched => {
-			Debug.LogFormat("Received: {0}", matched);
-			var match = await ServerConnection.Instance.Socket.JoinMatchAsync(matched);
+		Matchmaker.Search("*", 2, 2);
+		OpenDialog(FindingMatchDialog);
+	}
 
-			Debug.LogFormat("Self: {0}", match.Self);
-			Debug.LogFormat("Presences: {0}", match.Presences.ToJson());
-
-			isMatchReady = true;
-		};
+    public void OnCancelMatchmaking() {
+		Matchmaker.CancelSearch();
+		CloseDialog(FindingMatchDialog);
 	}
 }

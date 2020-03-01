@@ -2,11 +2,12 @@
 using System.Threading.Tasks;
 using UnityEngine;
 using Nakama;
+using Nakama.TinyJson;
 
 public class ServerConnection : MonoBehaviour {
 	private const string Host = "ec2-52-57-140-254.eu-central-1.compute.amazonaws.com";
 	private const int Port = 9000;
-	
+
 	public int LoginType { get; set; }
 	public const int LoginTypeDeviceId = 0;
 	public const int LoginTypeFacebook = 1;
@@ -20,7 +21,7 @@ public class ServerConnection : MonoBehaviour {
 
 	private static readonly object Lock = new object();
 	private static ServerConnection _instance;
-	
+
 	public static ServerConnection Instance {
 		get {
 			lock (Lock) {
@@ -46,7 +47,9 @@ public class ServerConnection : MonoBehaviour {
 
 	public Task<ISession> Session { get; private set; }
 
-	private ServerConnection() {
+    public Matchmaker matchmaker { get => Matchmaker.I; }
+
+    private ServerConnection() {
 		Client = new Client("http", Host, Port, SocketServerKey) {
 #if UNITY_EDITOR
 			Logger = new UnityLogger()
@@ -94,4 +97,39 @@ public class ServerConnection : MonoBehaviour {
 	}
 
 	private void OnApplicationQuit() => Socket?.CloseAsync();
+
+    public class Matchmaker {
+        public bool IsMatchReady { get; private set; }
+		private IMatchmakerTicket matchticket;
+
+		private static Matchmaker _instance;
+        public static Matchmaker I {
+            get {
+                if (_instance == null) _instance = new Matchmaker();
+                return _instance;
+            }
+        }
+
+        private Matchmaker() {
+            IsMatchReady = false;
+        }
+
+        public async void Search(string query, int minCount, int maxCount) {
+            ServerConnection.Instance.Socket.ReceivedMatchmakerMatched += async matched => {
+                Debug.LogFormat("Received: {0}", matched);
+                var match = await ServerConnection.Instance.Socket.JoinMatchAsync(matched);
+
+                Debug.LogFormat("Self: {0}", match.Self);
+                Debug.LogFormat("Presences: {0}", match.Presences.ToJson());
+
+                IsMatchReady = true;
+            };
+
+            matchticket = await ServerConnection.Instance.Socket.AddMatchmakerAsync(query, minCount, maxCount);
+        }
+
+        public void CancelSearch() {
+			if(matchticket != null) ServerConnection.Instance.Socket.RemoveMatchmakerAsync(matchticket);
+		}
+	}
 }
