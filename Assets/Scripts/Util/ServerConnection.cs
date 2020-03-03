@@ -12,7 +12,7 @@ public class ServerConnection : MonoBehaviour {
 	public const int LoginTypeDeviceId = 0;
 	public const int LoginTypeFacebook = 1;
 
-	private const string SessionPrefName = "pandarace.session";
+	private const string SessionPrefName = "";// "pandarace.session";
 	private const string SingletonName = "/[ServerConnection]";
 
 	private const string SocketServerKey = "2r5u8x/A?D*G-KaPdSgVkYp3s6v9y$B&";
@@ -100,6 +100,8 @@ public class ServerConnection : MonoBehaviour {
 
     public class Matchmaker {
         public bool IsMatchReady { get; private set; }
+		public IMatch Match { get; private set; }
+
 		private IMatchmakerTicket matchticket;
 
 		private static Matchmaker _instance;
@@ -116,13 +118,16 @@ public class ServerConnection : MonoBehaviour {
 
         public async void Search(string query, int minCount, int maxCount) {
             ServerConnection.Instance.Socket.ReceivedMatchmakerMatched += async matched => {
-                Debug.LogFormat("Received: {0}", matched);
                 var match = await ServerConnection.Instance.Socket.JoinMatchAsync(matched);
-
+                Match = match;
+#if UNITY_EDITOR
+                Debug.LogFormat("Received: {0}", matched);
                 Debug.LogFormat("Self: {0}", match.Self);
                 Debug.LogFormat("Presences: {0}", match.Presences.ToJson());
-
+#endif
                 IsMatchReady = true;
+
+                ServerConnection.Instance.Socket.ReceivedMatchState += GameController.recievedState;
             };
 
             matchticket = await ServerConnection.Instance.Socket.AddMatchmakerAsync(query, minCount, maxCount);
