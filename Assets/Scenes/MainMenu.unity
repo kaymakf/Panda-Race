@@ -122,7 +122,6 @@ GameObject:
   m_Component:
   - component: {fileID: 92973079}
   - component: {fileID: 92973080}
-  - component: {fileID: 92973081}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -167,18 +166,6 @@ MonoBehaviour:
   Fade: {fileID: 2064439166}
   OptionsMenuObject: {fileID: 1230058877}
   FindingMatchDialog: {fileID: 469526491}
---- !u!114 &92973081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 92973078}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71cd75501e336bb4c86fb228833f6f07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &136517953
 PrefabInstance:
   m_ObjectHideFlags: 0

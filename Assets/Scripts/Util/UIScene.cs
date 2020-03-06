@@ -26,14 +26,13 @@ public class UIScene : MonoBehaviour
 	protected void OpenDialog(GameObject dialog) {
         Fade.gameObject.SetActive(true);
         Fade.gameObject.layer = 0;
-        transform.DOScale(.2f, .2f).onComplete = () => gameObject.SetActive(false);
+		transform.DOScale(0, .2f);
         dialog.SetActive(true);
         dialog.transform.DOScale(1f, .2f).From(.5f).SetEase(Ease.InSine);
         Fade.DOFade(.6f, .5f).SetEase(Ease.InSine);
     }
 
 	protected void CloseDialog(GameObject dialog) {
-		gameObject.SetActive(true);
         transform.DOScale(1f, .2f);
 		Fade.gameObject.layer = 0;
         Fade.DOFade(0f, .5f).SetEase(Ease.Linear).onComplete = () => Fade.gameObject.SetActive(false);
