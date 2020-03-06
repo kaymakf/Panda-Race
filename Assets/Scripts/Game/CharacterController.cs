@@ -1,19 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
+
 
 public class CharacterController : MonoBehaviour
 {
     public float speed = .1f;
     //private Vector2 targetPos;
     public bool grounded;
-
+    Rigidbody2D rb;
     private Animator animator;
     
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -23,13 +26,13 @@ public class CharacterController : MonoBehaviour
         //transform.position+=new Vector3(speed,0,0);
 
         //move character
-        if ((GetComponent<Rigidbody2D>().velocity.x<speed))
-        { 
-            GetComponent<Rigidbody2D>().AddForce(Vector2.right*speed, ForceMode2D.Impulse);
+        if ((rb.velocity.x < speed))
+        {
+            rb.AddForce(Vector2.right * speed, ForceMode2D.Impulse);
         }
-        
+
         //move main camera
-        Camera.main.transform.position = new Vector3(transform.position.x, 0,-20);
+        Camera.main.transform.position = new Vector3(transform.position.x, 0, -20);
 
         /*UpArrow yerine ekrana dokunmak
          * if (Input.touchCount !=0)
@@ -37,9 +40,11 @@ public class CharacterController : MonoBehaviour
             transform.position += new Vector3(0, 2f, 0);
         }*/
 
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        float zıp= CrossPlatformInputManager.GetAxisRaw("Vertical");
+
+        if (/*Input.GetKeyDown(KeyCode.UpArrow)*/zıp>0)
         {
-            GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 5f), ForceMode2D.Impulse);
+            rb.AddForce(new Vector2(0, 5f), ForceMode2D.Impulse);
         }
 
         /*animator.SetBool("Grounded", grounded);
@@ -48,13 +53,14 @@ public class CharacterController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        GetComponent<Collider2D>()
+        //GetComponent<Collider2D>();
         grounded = GetComponent<CircleCollider2D>().OverlapPoint(transform.position);
     }
     void Jump()
     {
-        if (grounded) { 
-        transform.position+= new Vector3(0, 1f, 0);
+        if (grounded)
+        {
+            transform.position += new Vector3(0, 1f, 0);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
