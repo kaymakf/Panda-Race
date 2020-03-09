@@ -28,7 +28,7 @@ public class BlocksController : MonoBehaviour
             float xposition = 3 * i + Mathf.PerlinNoise(i / 1.2f, 0) * 4,
                 yposition = Mathf.PerlinNoise(i / 1.2f, 0) * 4;
 
-            spikyWall.transform.position = new Vector3Int((int)xposition, (int)(yposition - 4.5), 0);
+            spikyWall.transform.position = new Vector3(xposition,(yposition - 4.5f), 0);
 
             //myTilemap.SetTile(new Vector3Int((int)xposition, (int)(yposition-4.5), 0), myTile);
         }

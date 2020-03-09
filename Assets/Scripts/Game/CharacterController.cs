@@ -1,78 +1,32 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityStandardAssets.CrossPlatformInput;
+﻿using UnityEngine;
 
+public class CharacterController : MonoBehaviour {
+    public float moveSpeed = 5f;
+    public float jumpVelocity = 10f;
 
-public class CharacterController : MonoBehaviour
-{
-    public float speed = .1f;
-    //private Vector2 targetPos;
-    public bool grounded;
-    Rigidbody2D rb;
-    private Animator animator;
-    
+    [SerializeField] private LayerMask platformsLayerMask;
+    private Rigidbody2D rigidbody2d;
+    private BoxCollider2D boxCollider2d;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
+    private void Awake() {
+        rigidbody2d = transform.GetComponent<Rigidbody2D>();
+        boxCollider2d = transform.GetComponent<BoxCollider2D>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //transform.position=Vector2.MoveTowards(transform.position)
-        //transform.position+=new Vector3(speed,0,0);
+    private void Update() {
+        if (IsGrounded() && Input.GetAxisRaw("Vertical") > 0)
+            rigidbody2d.velocity = Vector2.up * jumpVelocity;
 
-        //move character
-        if ((rb.velocity.x < speed))
-        {
-            rb.AddForce(Vector2.right * speed, ForceMode2D.Impulse);
-        }
-
-        //move main camera
-        Camera.main.transform.position = new Vector3(transform.position.x, 0, -20);
-
-        /*UpArrow yerine ekrana dokunmak
-         * if (Input.touchCount !=0)
-        {
-            transform.position += new Vector3(0, 2f, 0);
-        }*/
-
-        float zıp= CrossPlatformInputManager.GetAxisRaw("Vertical");
-
-        if (/*Input.GetKeyDown(KeyCode.UpArrow)*/zıp>0)
-        {
-            rb.AddForce(new Vector2(0, 5f), ForceMode2D.Impulse);
-        }
-
-        /*animator.SetBool("Grounded", grounded);
-        animator.SetFloat("Speed", speed);*/
+        HandleMovement();
+        // todo:Set Animations
     }
 
-    private void FixedUpdate()
-    {
-        //GetComponent<Collider2D>();
-        grounded = GetComponent<CircleCollider2D>().OverlapPoint(transform.position);
-    }
-    void Jump()
-    {
-        if (grounded)
-        {
-            transform.position += new Vector3(0, 1f, 0);
-        }
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        grounded = true;
+    private bool IsGrounded() {
+        RaycastHit2D raycastHit2d = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size, 0f, Vector2.down, 1f, platformsLayerMask);
+        return raycastHit2d.collider != null;
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        grounded = false;
+    private void HandleMovement() {
+        rigidbody2d.velocity = new Vector2(+moveSpeed, rigidbody2d.velocity.y);
     }
-
-
-
 }

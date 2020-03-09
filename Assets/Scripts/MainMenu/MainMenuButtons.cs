@@ -1,8 +1,4 @@
-﻿using Nakama.TinyJson;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using DG.Tweening;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class MainMenuButtons : UIScene {
 	public GameObject OptionsMenuObject;
