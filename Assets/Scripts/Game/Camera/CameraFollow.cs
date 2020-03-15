@@ -34,9 +34,7 @@ public class CameraFollow : MonoBehaviour {
         this.GetCameraZoomFunc = GetCameraZoomFunc;
     }
 
-
-    // Update is called once per frame
-    void Update() {
+    void FixedUpdate() {
         HandleMovement();
         HandleZoom();
     }

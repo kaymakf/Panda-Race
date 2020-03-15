@@ -1,8 +1,6 @@
 ﻿using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using DG.Tweening;
-using UnityEngine.UI;
 
 public class Auth : UIScene
 {

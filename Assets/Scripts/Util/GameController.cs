@@ -4,11 +4,16 @@ using UnityEngine;
 
 public static class GameController
 {
-    public static Action<IMatchState> recievedState = newState => {
+    public const int ACTION_JUMP = 1;
+
+    public static Action<IMatchState> RecieveState = newState => {
         var enc = System.Text.Encoding.UTF8;
         var content = enc.GetString(newState.State);
 
         switch (newState.OpCode) {
+            case ACTION_JUMP:
+                Debug.Log("Jump!!!");
+                break;
             case 101:
                 Debug.Log("A custom opcode.");
                 break;
@@ -18,5 +23,16 @@ public static class GameController
         }
     };
 
+    public static void SendState(int opCode, string state) {
+        if (ServerConnection.Instance.Socket == null || ServerConnection.Instance.matchmaker.Match == null)
+            return;
+        ServerConnection.Instance.Socket.SendMatchStateAsync(
+            ServerConnection.Instance.matchmaker.Match.Id,
+            opCode,
+            state
+        );
+    }
+
     
+
 }

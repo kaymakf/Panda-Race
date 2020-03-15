@@ -127,7 +127,7 @@ public class ServerConnection : MonoBehaviour {
 #endif
                 IsMatchReady = true;
 
-                ServerConnection.Instance.Socket.ReceivedMatchState += GameController.recievedState;
+                ServerConnection.Instance.Socket.ReceivedMatchState += GameController.RecieveState;
             };
 
             matchticket = await ServerConnection.Instance.Socket.AddMatchmakerAsync(query, minCount, maxCount);
