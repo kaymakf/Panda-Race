@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Nakama.TinyJson;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CharacterController : MonoBehaviour {
     public float moveSpeed = 5f;

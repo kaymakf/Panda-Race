@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Nakama;
 using UnityEngine;
 
@@ -6,12 +7,15 @@ public static class GameController
 {
     public const int ACTION_JUMP = 1;
 
+    public static Queue<IMatchState> recievedActions = new Queue<IMatchState>();
+
     public static Action<IMatchState> RecieveState = newState => {
         var enc = System.Text.Encoding.UTF8;
         var content = enc.GetString(newState.State);
 
         switch (newState.OpCode) {
             case ACTION_JUMP:
+                recievedActions.Enqueue(newState);
                 Debug.Log("Jump!!!");
                 break;
             case 101:

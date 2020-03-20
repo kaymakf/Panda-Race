@@ -263,8 +263,8 @@ Canvas:
   m_GameObject: {fileID: 1178449271}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 2072339448}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -348,9 +348,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09e8fa70424b7464caed167729d0ee01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Fade: {fileID: 1092466856}
   LoadingCircle: {fileID: 5094719154466305193, guid: d8246b31ec9bc3c458db73379588cb04,
     type: 3}
-  Fade: {fileID: 1092466856}
 --- !u!222 &1362956710
 CanvasRenderer:
   m_ObjectHideFlags: 0
