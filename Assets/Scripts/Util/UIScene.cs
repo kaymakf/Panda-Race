@@ -39,6 +39,15 @@ public class UIScene : MonoBehaviour
 		var scaleAnim = dialog.transform.DOScale(.2f, .2f).SetEase(Ease.InSine).onComplete = () => dialog.SetActive(false);
 	}
 
+    protected void ShowLoading(GameObject LoadingCircle) {
+		gameObject.transform.DOScale(.2f, .2f).onComplete = () => {
+			gameObject.SetActive(false);
+			Transform canvasTransform = GameObject.Find("Canvas").transform;
+			GameObject loadingGameObj = Instantiate(LoadingCircle, Vector3.right * 2.7f, Quaternion.identity, canvasTransform);
+			loadingGameObj.transform.DOScale(.2f, .5f).From();
+		};
+	}
+
     protected void Bounce(GameObject o) {
 
     }

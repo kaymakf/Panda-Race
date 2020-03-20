@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
+using TMPro;
 
 public class MainMenuButtons : UIScene {
 	public GameObject OptionsMenuObject;
+	public GameObject NickTextObject;
 	public GameObject FindingMatchDialog;
 
     private ServerConnection Connection;
@@ -10,6 +12,7 @@ public class MainMenuButtons : UIScene {
 	void Start() {
 		Connection = ServerConnection.Instance;
 		Matchmaker = Connection.matchmaker;
+		NickTextObject.GetComponent<TextMeshProUGUI>().text = GlobalModel.Me.User.Username;
 
 		EnterScene();
 	}
