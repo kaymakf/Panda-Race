@@ -1,23 +1,23 @@
 fileFormatVersion: 2
-guid: 567151c6f2f85f347b35193a327bfb47
+guid: 380e91f0139ece94c8eab74d7ded568a
 ScriptedImporter:
   fileIDToRecycleName:
-    100000: character 1_GO/character 1_GO
-    100002: character 1_GO/character 1_GO/body
-    100004: character 1_GO/character 1_GO/leg_back
-    100006: character 1_GO/character 1_GO/leg_front
-    400000: character 1_GO/character 1_GO/Transform
-    400002: character 1_GO/character 1_GO/body/Transform
-    400004: character 1_GO/character 1_GO/leg_back/Transform
-    400006: character 1_GO/character 1_GO/leg_front/Transform
-    2800000: character 1
-    21200000: character 1_GO/character 1_GO/body/SpriteRenderer
-    21200002: character 1_GO/character 1_GO/leg_back/SpriteRenderer
-    21200004: character 1_GO/character 1_GO/leg_front/SpriteRenderer
-    21300000: c23498020d5b3bd4dac6bc309dd97c79
-    21300002: 45442a90a9d20174cad73c89413eb441
-    21300004: b294760483b9cab45a732ad41703042a
-    100100000: character 1_GO
+    100000: character-cat_GO/character-cat_GO
+    100002: character-cat_GO/character-cat_GO/body
+    100004: character-cat_GO/character-cat_GO/leg_back_cat
+    100006: character-cat_GO/character-cat_GO/leg_front_cat
+    400000: character-cat_GO/character-cat_GO/Transform
+    400002: character-cat_GO/character-cat_GO/body/Transform
+    400004: character-cat_GO/character-cat_GO/leg_back_cat/Transform
+    400006: character-cat_GO/character-cat_GO/leg_front_cat/Transform
+    2800000: character-cat
+    21200000: character-cat_GO/character-cat_GO/body/SpriteRenderer
+    21200002: character-cat_GO/character-cat_GO/leg_back_cat/SpriteRenderer
+    21200004: character-cat_GO/character-cat_GO/leg_front_cat/SpriteRenderer
+    21300000: 8665b890c72984d42b3b8c0d570c921d
+    21300002: a6fa644ca34648848a671d01478c0ec5
+    21300004: df5a44278f4cbc649b78120178e1ba05
+    100100000: character-cat_GO
   externalObjects: {}
   userData: 
   assetBundleName: 
@@ -100,18 +100,18 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
-  - name: leg_front
+  - name: leg_front_cat
     originalName: 
     pivot: {x: 0, y: 1}
     alignment: 1
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 789
+      x: 775
       y: 4
-      width: 128
-      height: 344
-    spriteID: c23498020d5b3bd4dac6bc309dd97c79
+      width: 105
+      height: 333
+    spriteID: 8665b890c72984d42b3b8c0d570c921d
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -120,7 +120,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 480, y: -41}
+    uvTransform: {x: 462, y: -47}
   - name: body
     originalName: 
     pivot: {x: 0.5, y: 0}
@@ -130,9 +130,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 777
-      height: 766
-    spriteID: 45442a90a9d20174cad73c89413eb441
+      width: 763
+      height: 853
+    spriteID: a6fa644ca34648848a671d01478c0ec5
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -141,19 +141,19 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -42, y: -314}
-  - name: leg_back
+    uvTransform: {x: 2, y: -313}
+  - name: leg_back_cat
     originalName: 
     pivot: {x: 0, y: 1}
     alignment: 1
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 789
-      y: 356
-      width: 128
-      height: 344
-    spriteID: b294760483b9cab45a732ad41703042a
+      x: 775
+      y: 345
+      width: 105
+      height: 333
+    spriteID: df5a44278f4cbc649b78120178e1ba05
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -162,7 +162,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 287, y: 311}
+    uvTransform: {x: 269, y: 294}
   platformSettings:
   - name: Default
     overridden: 1
@@ -180,7 +180,7 @@ ScriptedImporter:
   importHiddenLayers: 0
   importedTextureWidth: 1024
   importedTextureHeight: 1024
-  documentSize: {x: 867, y: 1112}
+  documentSize: {x: 867, y: 1180}
   textureActualWidth: 1024
   textureActualHeight: 1024
   spritePackingTag: 
@@ -188,32 +188,32 @@ ScriptedImporter:
   characterMode: 1
   mosaicPSDLayers: []
   rigPSDLayers:
-  - name: leg_front
-    spriteName: leg_front
+  - name: leg_front_cat
+    spriteName: leg_front_cat
     isGroup: 0
     parentIndex: -1
-    spriteID: c23498020d5b3bd4dac6bc309dd97c79
-    layerID: 8
-    mosaicPosition: {x: 789, y: 4}
+    spriteID: 8665b890c72984d42b3b8c0d570c921d
+    layerID: 39
+    mosaicPosition: {x: 775, y: 4}
   - name: body
     spriteName: body
     isGroup: 0
     parentIndex: -1
-    spriteID: 45442a90a9d20174cad73c89413eb441
-    layerID: 19
+    spriteID: a6fa644ca34648848a671d01478c0ec5
+    layerID: 57
     mosaicPosition: {x: 4, y: 4}
-  - name: leg_back
-    spriteName: leg_back
+  - name: leg_back_cat
+    spriteName: leg_back_cat
     isGroup: 0
     parentIndex: -1
-    spriteID: b294760483b9cab45a732ad41703042a
-    layerID: 10
-    mosaicPosition: {x: 789, y: 356}
+    spriteID: df5a44278f4cbc649b78120178e1ba05
+    layerID: 41
+    mosaicPosition: {x: 775, y: 345}
   characterData:
     bones: []
     parts: []
     dimension: {x: 0, y: 0}
   boneGOs: []
   generateGOHierarchy: 0
-  textureAssetName: character 1
-  prefabAssetName: character 1_GO
+  textureAssetName: character-cat
+  prefabAssetName: character-cat_GO
