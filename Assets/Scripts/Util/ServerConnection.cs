@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Nakama;
 using Nakama.TinyJson;
+using System.Collections.Generic;
 
 public class ServerConnection : MonoBehaviour {
 	private const string Host = "ec2-52-57-140-254.eu-central-1.compute.amazonaws.com";
@@ -100,11 +101,11 @@ public class ServerConnection : MonoBehaviour {
 
     public class Matchmaker {
         public bool IsMatchReady { get; private set; }
-		public IMatch Match { get; private set; }
+        public IMatch Match { get; private set; }
 
-		private IMatchmakerTicket matchticket;
+        private IMatchmakerTicket matchticket;
 
-		private static Matchmaker _instance;
+        private static Matchmaker _instance;
         public static Matchmaker I {
             get {
                 if (_instance == null) _instance = new Matchmaker();
@@ -125,10 +126,24 @@ public class ServerConnection : MonoBehaviour {
                 Debug.LogFormat("Self: {0}", match.Self);
                 Debug.LogFormat("Presences: {0}", match.Presences.ToJson());
 #endif
-                IsMatchReady = true;
+                var oppenent = new List<IUserPresence>(Match.Presences);
+				oppenent.Remove(match.Self);
+				GlobalModel.Opponent = oppenent[0];
+
+      //          foreach (IUserPresence player in match.Presences)
+      //              if (player.UserId != GlobalModel.Me.User.Id)
+						//GlobalModel.Opponent = player;
 
                 ServerConnection.Instance.Socket.ReceivedMatchState += GameController.RecieveState;
-            };
+
+                if(string.Compare(GlobalModel.Me.User.Id, GlobalModel.Opponent.UserId) > 0) {
+					int myChar = UnityEngine.Random.Range(0, 2);
+					GlobalModel.SetMyCharacter(myChar);
+					GameController.SendState(2, myChar.ToString());
+                }
+
+				IsMatchReady = true;
+			};
 
             matchticket = await ServerConnection.Instance.Socket.AddMatchmakerAsync(query, minCount, maxCount);
         }

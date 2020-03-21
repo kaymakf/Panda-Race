@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Nakama;
+using Nakama.TinyJson;
 using UnityEngine;
 
 public static class GameController
 {
     public const int ACTION_JUMP = 1;
+    public const int ACTION_PICKED_CHARACTER = 2;
 
     public static Queue<IMatchState> recievedActions = new Queue<IMatchState>();
 
@@ -17,6 +19,10 @@ public static class GameController
             case ACTION_JUMP:
                 recievedActions.Enqueue(newState);
                 Debug.Log("Jump!!!");
+                break;
+            case ACTION_PICKED_CHARACTER:
+                if (GlobalModel.Opponent == null) GlobalModel.Opponent = newState.UserPresence;
+                GlobalModel.SetMyCharacter((int.Parse(content) + 1) % 2);
                 break;
             case 101:
                 Debug.Log("A custom opcode.");
