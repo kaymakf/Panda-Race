@@ -4,16 +4,19 @@ using Nakama;
 using Nakama.TinyJson;
 using UnityEngine;
 
-public static class GameController
-{
+public static class GameController {
     public const int ACTION_JUMP = 1;
     public const int ACTION_PICKED_CHARACTER = 2;
+    public const int ACTION_READY = 3;
 
     public static Queue<IMatchState> recievedActions = new Queue<IMatchState>();
 
     public static Action<IMatchState> RecieveState = newState => {
-        var enc = System.Text.Encoding.UTF8;
-        var content = enc.GetString(newState.State);
+        string content = "";
+        if (newState.State != null) {
+            var enc = System.Text.Encoding.UTF8;
+            content = enc.GetString(newState.State);
+        }
 
         switch (newState.OpCode) {
             case ACTION_JUMP:
@@ -21,8 +24,10 @@ public static class GameController
                 Debug.Log("Jump!!!");
                 break;
             case ACTION_PICKED_CHARACTER:
-                if (GlobalModel.Opponent == null) GlobalModel.Opponent = newState.UserPresence;
                 GlobalModel.SetMyCharacter((int.Parse(content) + 1) % 2);
+                break;
+            case ACTION_READY:
+                GlobalModel.OppenentReady = true;
                 break;
             case 101:
                 Debug.Log("A custom opcode.");
@@ -42,7 +47,4 @@ public static class GameController
             state
         );
     }
-
-    
-
 }

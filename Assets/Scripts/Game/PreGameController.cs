@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
@@ -17,19 +18,27 @@ public class PreGameController : UIScene {
         EnterScene();
         OpenDialog(PickAvatarDialog);
 
-        Texts[GlobalModel.MyCharacter].text = GlobalModel.Me.User.Username;
-        Texts[(GlobalModel.MyCharacter + 1) % 2].text = GlobalModel.Opponent.Username;
+        Texts[GlobalModel.MyCharacter].text = GlobalModel.Me?.User.Username;
+        Texts[(GlobalModel.MyCharacter + 1) % 2].text = GlobalModel.Opponent?.Username;
+
+        StartCoroutine(TimeCount());
     }
 
-    void Update() {
-        CountDown -= Time.deltaTime;
-        Texts[2].text = ((int)CountDown + 1).ToString();
-        if (CountDown < 0)
-            StartGameplay();
+    private IEnumerator TimeCount() {
+        while (CountDown >= 0) {
+            CountDown -= 1;
+            Texts[2].text = ((int)CountDown + 1).ToString();
+            Texts[2].gameObject.transform.DOScale(.2f, .2f).From();
+            Debug.Log(CountDown);
+            yield return new WaitForSeconds(1);
+        }
+        Debug.Log("bitti");
+        GameController.SendState(GameController.ACTION_READY, "");
+        StartCoroutine(StartGameplay());
     }
 
-    private void StartGameplay() {
-        //CloseDialog(PickAvatarDialog);
+    private IEnumerator StartGameplay() {
+        yield return new WaitUntil(() => GlobalModel.OppenentReady);
         Fade.gameObject.SetActive(false);
         PickAvatarDialog.SetActive(false);
         GridContainer.SetActive(true);

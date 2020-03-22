@@ -13,7 +13,7 @@ public class ServerConnection : MonoBehaviour {
 	public const int LoginTypeDeviceId = 0;
 	public const int LoginTypeFacebook = 1;
 
-	private const string SessionPrefName = "";// "pandarace.session";
+	private const string SessionPrefName = "pandarace.session";
 	private const string SingletonName = "/[ServerConnection]";
 
 	private const string SocketServerKey = "2r5u8x/A?D*G-KaPdSgVkYp3s6v9y$B&";
@@ -126,30 +126,24 @@ public class ServerConnection : MonoBehaviour {
                 Debug.LogFormat("Self: {0}", match.Self);
                 Debug.LogFormat("Presences: {0}", match.Presences.ToJson());
 #endif
-                var oppenent = new List<IUserPresence>(Match.Presences);
-				oppenent.Remove(match.Self);
-				GlobalModel.Opponent = oppenent[0];
-
-      //          foreach (IUserPresence player in match.Presences)
-      //              if (player.UserId != GlobalModel.Me.User.Id)
-						//GlobalModel.Opponent = player;
+                foreach (var u in matched.Users)
+                    if (u.Presence.UserId != GlobalModel.Me.User.Id)
+                        GlobalModel.Opponent = u.Presence;
 
                 ServerConnection.Instance.Socket.ReceivedMatchState += GameController.RecieveState;
 
-                if(string.Compare(GlobalModel.Me.User.Id, GlobalModel.Opponent.UserId) > 0) {
-					int myChar = UnityEngine.Random.Range(0, 2);
-					GlobalModel.SetMyCharacter(myChar);
-					GameController.SendState(2, myChar.ToString());
+                if (string.Compare(GlobalModel.Me?.User.Id, GlobalModel.Opponent?.UserId) > 0) {
+                    int myChar = new System.Random().Next(2);
+                    GlobalModel.SetMyCharacter(myChar);
+                    GameController.SendState(2, myChar.ToString());
                 }
-
-				IsMatchReady = true;
-			};
-
+                IsMatchReady = true;
+            };
             matchticket = await ServerConnection.Instance.Socket.AddMatchmakerAsync(query, minCount, maxCount);
         }
 
         public void CancelSearch() {
-			if(matchticket != null) ServerConnection.Instance.Socket.RemoveMatchmakerAsync(matchticket);
-		}
-	}
+            if (matchticket != null) ServerConnection.Instance.Socket.RemoveMatchmakerAsync(matchticket);
+        }
+    }
 }
