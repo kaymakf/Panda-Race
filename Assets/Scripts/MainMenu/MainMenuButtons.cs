@@ -12,7 +12,7 @@ public class MainMenuButtons : UIScene {
 	void Start() {
 		Connection = ServerConnection.Instance;
 		Matchmaker = Connection.matchmaker;
-		NickTextObject.GetComponent<TextMeshProUGUI>().text = GlobalModel.Me.User.Username;
+		NickTextObject.GetComponent<TMP_InputField>().text = GlobalModel.Me.User.Username;
 
 		EnterScene();
 	}
@@ -41,4 +41,13 @@ public class MainMenuButtons : UIScene {
 		Matchmaker.CancelSearch();
 		CloseDialog(FindingMatchDialog);
 	}
+
+    public async void OnChangeNick() {
+		var newNick = NickTextObject.GetComponent<TMP_InputField>().text;
+		if (newNick == null || newNick.Length < 2 || newNick == GlobalModel.Me.User.Username)
+			return;
+		var session = await Connection.Session;
+		await Connection.Client.UpdateAccountAsync(session, newNick);
+		GlobalModel.Me = await Connection.Client.GetAccountAsync(session); ;
+    }
 }
