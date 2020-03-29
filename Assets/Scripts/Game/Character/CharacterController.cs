@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
 public class CharacterController : MonoBehaviour {
-    public float moveSpeed = 5f;
-    public float jumpVelocity = 10f;
+    public float moveSpeed = 7f;
+    public float jumpVelocity = 14f;
 
     [SerializeField] protected LayerMask platformsLayerMask;
     protected Rigidbody2D rigidbody2d;

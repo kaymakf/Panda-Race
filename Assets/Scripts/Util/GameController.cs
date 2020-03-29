@@ -8,6 +8,7 @@ public static class GameController {
     public const int ACTION_JUMP = 1;
     public const int ACTION_PICKED_CHARACTER = 2;
     public const int ACTION_READY = 3;
+    public const int ACTION_LEVEL_GENERATED = 4;
 
     public static Queue<IMatchState> recievedActions = new Queue<IMatchState>();
 
@@ -29,8 +30,8 @@ public static class GameController {
             case ACTION_READY:
                 GlobalModel.OppenentReady = true;
                 break;
-            case 101:
-                Debug.Log("A custom opcode.");
+            case ACTION_LEVEL_GENERATED:
+                GlobalModel.GeneratedSplinePoints = content.FromJson<List<(float, float)>>();
                 break;
             default:
                 Debug.LogFormat("User '{0}'' sent '{1}'", newState.UserPresence.Username, content);

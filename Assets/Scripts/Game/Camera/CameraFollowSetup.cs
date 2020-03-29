@@ -4,8 +4,8 @@
 public class CameraFollowSetup : MonoBehaviour {
 
     [SerializeField] private CameraFollow cameraFollow;
-    [SerializeField] private Transform followTransform;
-    [SerializeField] public float zoom;
+    public Transform followTransform;
+    public float zoom;
 
     private void Start() {
         if (followTransform == null) {

@@ -135,7 +135,7 @@ public class ServerConnection : MonoBehaviour {
                 if (string.Compare(GlobalModel.Me?.User.Id, GlobalModel.Opponent?.UserId) > 0) {
                     int myChar = new System.Random().Next(2);
                     GlobalModel.SetMyCharacter(myChar);
-                    GameController.SendState(2, myChar.ToString());
+                    GameController.SendState(GameController.ACTION_PICKED_CHARACTER, myChar.ToString());
                 }
                 IsMatchReady = true;
             };
