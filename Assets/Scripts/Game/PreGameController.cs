@@ -12,6 +12,7 @@ public class PreGameController : UIScene {
     public LevelGenerator Level;
     public TextMeshProUGUI[] Texts;
     public CameraFollowSetup CameraSetup;
+    public GradientFollow BgFollow;
 
     public float CountDown = 5f;
 
@@ -31,7 +32,9 @@ public class PreGameController : UIScene {
 
         while (CountDown >= 0) {
             Texts[2].text = ((int)CountDown).ToString();
-            Texts[2].gameObject.transform.DOScale(.2f, .2f).From();
+            var countdownTransform = Texts[2].gameObject.transform;
+            if (countdownTransform != null)
+                countdownTransform.DOScale(.2f, .2f).From();
             CountDown -= 1;
             yield return new WaitForSeconds(1);
         }
@@ -59,6 +62,7 @@ public class PreGameController : UIScene {
             cat.GetComponent<PlayerController>().enabled = false;
             cat.GetComponent<OpponentController>().enabled = true;
             CameraSetup.followTransform = chick;
+            BgFollow.target = chick;
         }
         else {
             chick.GetComponent<PlayerController>().enabled = false;
@@ -66,6 +70,7 @@ public class PreGameController : UIScene {
             cat.GetComponent<PlayerController>().enabled = true;
             cat.GetComponent<OpponentController>().enabled = false;
             CameraSetup.followTransform = cat;
+            BgFollow.target = cat;
         }
     }
 }

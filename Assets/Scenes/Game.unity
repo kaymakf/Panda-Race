@@ -473,8 +473,8 @@ SpriteShapeRenderer:
   m_ShapeTexture: {fileID: 2800000, guid: 1a6841c70677f463fad0a19505993719, type: 3}
   m_Sprites:
   - {fileID: 21300002, guid: 8ce8d8df6612b4f4e898cf7f3a7ade7c, type: 3}
-  - {fileID: 21300000, guid: ecf933f82f74c4b498a6159db390c310, type: 3}
-  - {fileID: 21300000, guid: 31c476b718c2d42d39500499a17656ca, type: 3}
+  - {fileID: 21300002, guid: 8ce8d8df6612b4f4e898cf7f3a7ade7c, type: 3}
+  - {fileID: 21300002, guid: 8ce8d8df6612b4f4e898cf7f3a7ade7c, type: 3}
   - {fileID: 21300000, guid: 4e818b2fcdd0041e38f93f95ec9a6ab0, type: 3}
   - {fileID: 21300000, guid: 8ce8d8df6612b4f4e898cf7f3a7ade7c, type: 3}
   - {fileID: 21300004, guid: 8ce8d8df6612b4f4e898cf7f3a7ade7c, type: 3}
@@ -1253,6 +1253,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2fb725d3232974c939dcb88b5c31090a, type: 3}
+--- !u!114 &584974014 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 197728591, guid: 2fb725d3232974c939dcb88b5c31090a,
+    type: 3}
+  m_PrefabInstance: {fileID: 584974013}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 096da9d352eef46daaf2966563bb7537, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &600932557
 GameObject:
   m_ObjectHideFlags: 0
@@ -2794,6 +2806,7 @@ MonoBehaviour:
   - {fileID: 600932559}
   - {fileID: 1428839572}
   CameraSetup: {fileID: 2056704268}
+  BgFollow: {fileID: 584974014}
   CountDown: 5
 --- !u!1 &1008565371
 GameObject:
