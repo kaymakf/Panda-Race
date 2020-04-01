@@ -30,9 +30,9 @@ public class PreGameController : UIScene {
         Texts[(GlobalModel.MyCharacter + 1) % 2].text = GlobalModel.Opponent?.Username;
 
         while (CountDown >= 0) {
-            CountDown -= 1;
-            Texts[2].text = ((int)CountDown + 1).ToString();
+            Texts[2].text = ((int)CountDown).ToString();
             Texts[2].gameObject.transform.DOScale(.2f, .2f).From();
+            CountDown -= 1;
             yield return new WaitForSeconds(1);
         }
         yield return new WaitUntil(() => Level.Ready);

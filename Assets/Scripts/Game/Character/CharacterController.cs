@@ -4,7 +4,7 @@ public class CharacterController : MonoBehaviour {
     public float moveSpeed = 7f;
     public float jumpVelocity = 14f;
 
-    [SerializeField] protected LayerMask platformsLayerMask;
+    public LayerMask platformsLayerMask;
     protected Rigidbody2D rigidbody2d;
     protected BoxCollider2D boxCollider2d;
 

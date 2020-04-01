@@ -9,8 +9,10 @@ public static class GameController {
     public const int ACTION_PICKED_CHARACTER = 2;
     public const int ACTION_READY = 3;
     public const int ACTION_LEVEL_GENERATED = 4;
+    public const int ACTION_POSITION_UPDATE = 5;
 
-    public static Queue<IMatchState> recievedActions = new Queue<IMatchState>();
+    public static Queue<(float, float)> recievedJumps = new Queue<(float,float)>();
+    public static Queue<(float, float)> recievedPositions = new Queue<(float, float)>();
 
     public static Action<IMatchState> RecieveState = newState => {
         string content = "";
@@ -21,7 +23,7 @@ public static class GameController {
 
         switch (newState.OpCode) {
             case ACTION_JUMP:
-                recievedActions.Enqueue(newState);
+                recievedJumps.Enqueue(content.FromJson<(float, float)>());
                 Debug.Log("Jump!!!");
                 break;
             case ACTION_PICKED_CHARACTER:
@@ -32,6 +34,9 @@ public static class GameController {
                 break;
             case ACTION_LEVEL_GENERATED:
                 GlobalModel.GeneratedSplinePoints = content.FromJson<List<(float, float)>>();
+                break;
+            case ACTION_POSITION_UPDATE:
+                recievedPositions.Enqueue(content.FromJson<(float, float)>());
                 break;
             default:
                 Debug.LogFormat("User '{0}'' sent '{1}'", newState.UserPresence.Username, content);

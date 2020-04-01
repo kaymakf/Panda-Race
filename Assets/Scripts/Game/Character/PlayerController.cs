@@ -1,8 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
 using Nakama.TinyJson;
 using UnityEngine;
 
 public class PlayerController : CharacterController {
+
+    void Start() {
+        StartCoroutine(SendPosition());
+    }
+
     void Update() {
         if (IsGrounded() && ((Input.GetAxisRaw("Vertical") > 0) || (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)))
             jump = true;
@@ -14,13 +19,20 @@ public class PlayerController : CharacterController {
             jump = false;
             GameController.SendState(
                 GameController.ACTION_JUMP,
-                new Dictionary<string, float> {
-                    {"x", transform.position.x},
-                    {"y", transform.position.y}
-                }.ToJson()
+                (transform.position.x, transform.position.y).ToJson()
             );
         }
         HandleMovement();
         // todo:Set Animations
+    }
+
+    private IEnumerator SendPosition() {
+        while (true) {
+            yield return new WaitForSeconds(2);
+            GameController.SendState(
+                GameController.ACTION_POSITION_UPDATE,
+                (transform.position.x, transform.position.y).ToJson()
+            );
+        }
     }
 }

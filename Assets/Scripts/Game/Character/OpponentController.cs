@@ -1,23 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Nakama.TinyJson;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class OpponentController : CharacterController {
+    private Vector3 newPosition = new Vector3();
+
     void FixedUpdate() {
-        if (GameController.recievedActions.Count > 0) {
-            var state = GameController.recievedActions.Dequeue();
-            switch (state.OpCode) {
-                case GameController.ACTION_JUMP:
-                    var enc = System.Text.Encoding.UTF8;
-                    var content = enc.GetString(state.State);
-                    var c = content.FromJson<Dictionary<string, float>>();
-                    Debug.Log(c);
-                    transform.position = new Vector3(c["x"], c["y"], transform.position.z);
-                    rigidbody2d.velocity = Vector2.up * jumpVelocity;
-                    break;
-            }
+        if (GameController.recievedJumps.Count > 0) {
+            SetPosition(GameController.recievedJumps.Dequeue());
+            rigidbody2d.velocity = Vector2.up * jumpVelocity;
         }
+
+        if (GameController.recievedPositions.Count > 0)
+            SetPosition(GameController.recievedJumps.Dequeue());
+
         HandleMovement();
+    }
+
+    private void SetPosition((float, float) state) {
+        newPosition.Set(state.Item1, state.Item2, transform.position.z);
+        transform.position = newPosition;
     }
 }
