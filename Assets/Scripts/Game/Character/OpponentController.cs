@@ -10,7 +10,7 @@ public class OpponentController : CharacterController {
         }
 
         if (GameController.recievedPositions.Count > 0)
-            SetPosition(GameController.recievedJumps.Dequeue());
+            SetPosition(GameController.recievedPositions.Dequeue());
 
         HandleMovement();
     }
