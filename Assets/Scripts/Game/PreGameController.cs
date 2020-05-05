@@ -18,7 +18,6 @@ public class PreGameController : UIScene {
 
     void Start() {
         GameplayContainer.SetActive(false);
-        //GridContainer.SetActive(false);
         Ground.SetActive(false);
         EnterScene();
         OpenDialog(PickAvatarDialog);

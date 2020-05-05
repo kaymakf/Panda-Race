@@ -56,7 +56,7 @@ public class LevelGenerator : MonoBehaviour {
             SplinePoints.SetTangentMode(i, ShapeTangentMode.Continuous);
             GlobalModel.GeneratedSplinePoints.Add((xpos, ypos));
         }
-        SplinePoints.InsertPointAt(i, new Vector3(xpos, -2));
+        SplinePoints.InsertPointAt(i, new Vector3(xpos, -6));
         GlobalModel.GeneratedSplinePoints.Add((xpos, -2));
         SpriteShapeController.BakeCollider();
     }

@@ -59,7 +59,10 @@ public class ServerConnection : MonoBehaviour {
 		Socket = Client.NewSocket();
 		Socket.Closed += () => Debug.Log("Socket closed.");
 		Socket.Connected += () => Debug.Log("Socket connected.");
-		Socket.ReceivedError += e => Debug.LogErrorFormat("Socket error: {0}", e.Message);
+		Socket.ReceivedError += async e => {
+			Debug.LogErrorFormat("Socket error: {0}", e.Message);
+			if (!Socket.IsConnected) await Socket.ConnectAsync(await Session);
+		};
 	}
 
 	private Task<ISession> Authenticate() {
