@@ -37,7 +37,6 @@ public class LevelGenerator : MonoBehaviour {
             SetReceivedGround(GlobalModel.GeneratedSplinePoints);
         }
         Ready = true;
-        GlobalModel.GeneratedSplinePoints = null;
     }
 
     //civciv
@@ -71,7 +70,7 @@ public class LevelGenerator : MonoBehaviour {
         for (int i = 0; i < points.Count; i++) {
             pointPosition.Set(points[i].Item1, points[i].Item2);
             SplinePoints.InsertPointAt(i + 4, pointPosition);
-            SplinePoints.SetTangentMode(i, ShapeTangentMode.Continuous);
+            SplinePoints.SetTangentMode(i+4, ShapeTangentMode.Continuous);
         }
         SpriteShapeController.BakeCollider();
     }

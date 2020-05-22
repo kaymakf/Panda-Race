@@ -26,8 +26,8 @@ public class PlayerController : CharacterController {
     }
 
     private IEnumerator SendPosition() {
-        while (true) {
-            yield return new WaitForSeconds(1f);
+        while (!GlobalModel.GameFinished) {
+            yield return new WaitForSeconds(.4f);
             GameController.SendState(
                 GameController.ACTION_POSITION_UPDATE,
                 (transform.position.x, transform.position.y).ToJson()

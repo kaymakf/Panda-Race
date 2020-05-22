@@ -15,7 +15,7 @@ public class InGameMenu : UIScene {
     public void LeaveGame() {
         Connection.Socket.LeaveMatchAsync(Matchmaker.Match);
         Matchmaker.CancelSearch();
-        GlobalModel.GameFinished = false;
+        GlobalModel.ResetGameFlags();
         ExitScene("MainMenu");
     }
 

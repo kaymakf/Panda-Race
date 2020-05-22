@@ -149,6 +149,7 @@ public class ServerConnection : MonoBehaviour {
 					Debug.Log("Opponent Left the game...");
 					Instance.Socket.LeaveMatchAsync(Match);
 					CancelSearch();
+					GlobalModel.ResetGameFlags();
                 }
 			};
 

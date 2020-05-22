@@ -28,4 +28,13 @@ public static class GlobalModel {
                 return -1;
         }
     }
+
+    public static void ResetGameFlags() {
+        GeneratedSplinePoints = null;
+        Opponent = null;
+        GameFinished = false;
+        OppenentReady = false;
+        RecievedWinner = -1;
+        MyCharacter = -1;
+    }
 }
