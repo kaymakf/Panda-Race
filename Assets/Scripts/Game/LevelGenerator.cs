@@ -7,7 +7,7 @@ using UnityEngine.U2D;
 
 public class LevelGenerator : MonoBehaviour {
 
-    public int LevelLength = 200; //x ekseninde uzunluk
+    public int LevelLength = 400; //x ekseninde uzunluk
     public int PointFreq = 5;  //Hangi sıklıkla nokta oluşturulsun
     public float Smoothness = 5f; //Yükseltiler arasındaki geçişin yumuşaklığı
     public float Amplitude = 15f; //Çukurların ve tepelerin derinlik ve yüksekliği
@@ -43,29 +43,33 @@ public class LevelGenerator : MonoBehaviour {
     //civciv
     private void CreateGround() {
         GlobalModel.GeneratedSplinePoints = new List<(float, float)>();
-        Vector3 pointPosition = new Vector3();
+        Vector2 pointPosition = new Vector2();
         int i;
         float xpos = 0, ypos;
         float seed = (float)new System.Random().NextDouble() * Randomness;
         for (i = 4; i < LevelLength / PointFreq; i++) {
             xpos = i * PointFreq;
             ypos = Mathf.PerlinNoise((seed + i) / Smoothness, 0f) * Amplitude - Amplitude / 5;
-            pointPosition.Set(xpos, ypos, 0);
+            pointPosition.Set(xpos, ypos);
             Debug.Log("point" + SplinePoints.GetPointCount() + ": " + xpos + ", " + ypos);
             SplinePoints.InsertPointAt(i, pointPosition);
             SplinePoints.SetTangentMode(i, ShapeTangentMode.Continuous);
             GlobalModel.GeneratedSplinePoints.Add((xpos, ypos));
         }
-        SplinePoints.InsertPointAt(i, new Vector3(xpos, -6));
-        GlobalModel.GeneratedSplinePoints.Add((xpos, -2));
+        SplinePoints.InsertPointAt(i++, new Vector2(xpos, 30));
+        SplinePoints.InsertPointAt(i++, new Vector2(xpos+30, 30));
+        SplinePoints.InsertPointAt(i, new Vector2(xpos+30, -10));
+        GlobalModel.GeneratedSplinePoints.Add((xpos, 30));
+        GlobalModel.GeneratedSplinePoints.Add((xpos+30, 30));
+        GlobalModel.GeneratedSplinePoints.Add((xpos+30, -10));
         SpriteShapeController.BakeCollider();
     }
 
     //kedi
     private void SetReceivedGround(List<(float, float)> points) {
-        Vector3 pointPosition = new Vector3();
+        Vector2 pointPosition = new Vector2();
         for (int i = 0; i < points.Count; i++) {
-            pointPosition.Set(points[i].Item1, points[i].Item2, 0);
+            pointPosition.Set(points[i].Item1, points[i].Item2);
             SplinePoints.InsertPointAt(i + 4, pointPosition);
             SplinePoints.SetTangentMode(i, ShapeTangentMode.Continuous);
         }

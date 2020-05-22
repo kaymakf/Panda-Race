@@ -6,28 +6,32 @@ using UnityEngine;
 
 public class PreGameController : UIScene {
     public GameObject GameplayContainer;
-    //public GameObject GridContainer;
     public GameObject Ground;
     public GameObject PickAvatarDialog;
     public LevelGenerator Level;
     public TextMeshProUGUI[] Texts;
     public CameraFollowSetup CameraSetup;
-    public GradientFollow BgFollow;
 
     public float CountDown = 5f;
 
     void Start() {
         GameplayContainer.SetActive(false);
         Ground.SetActive(false);
-        EnterScene();
-        OpenDialog(PickAvatarDialog);
         StartCoroutine(TimeCount());
     }
 
+    void Update() {
+        if (!ServerConnection.Instance.matchmaker.IsMatchReady)
+            ExitScene("MainMenu");
+    }
+
     private IEnumerator TimeCount() {
+        EnterScene();
+        yield return new WaitForSeconds(.3f);
+        OpenDialog(PickAvatarDialog);
         yield return new WaitUntil(() => GlobalModel.MyCharacter != -1);
         Texts[GlobalModel.MyCharacter].text = GlobalModel.Me?.User.Username;
-        Texts[(GlobalModel.MyCharacter + 1) % 2].text = GlobalModel.Opponent?.Username;
+        Texts[GlobalModel.OppenentCharacter].text = GlobalModel.Opponent?.Username;
 
         while (CountDown >= 0) {
             Texts[2].text = ((int)CountDown).ToString();
@@ -44,9 +48,7 @@ public class PreGameController : UIScene {
 
     private IEnumerator StartGameplay() {
         yield return new WaitUntil(() => GlobalModel.OppenentReady);
-        Fade.gameObject.SetActive(false);
-        PickAvatarDialog.SetActive(false);
-        //GridContainer.SetActive(true);
+        CloseDialog(PickAvatarDialog);
         Ground.SetActive(true);
         SetCharacterControllers();
         GameplayContainer.SetActive(true);
@@ -61,7 +63,6 @@ public class PreGameController : UIScene {
             cat.GetComponent<PlayerController>().enabled = false;
             cat.GetComponent<OpponentController>().enabled = true;
             CameraSetup.followTransform = chick;
-            BgFollow.target = chick;
         }
         else {
             chick.GetComponent<PlayerController>().enabled = false;
@@ -69,7 +70,6 @@ public class PreGameController : UIScene {
             cat.GetComponent<PlayerController>().enabled = true;
             cat.GetComponent<OpponentController>().enabled = false;
             CameraSetup.followTransform = cat;
-            BgFollow.target = cat;
         }
     }
 }

@@ -23,7 +23,6 @@ public class PlayerController : CharacterController {
             );
         }
         HandleMovement();
-        // todo:Set Animations
     }
 
     private IEnumerator SendPosition() {

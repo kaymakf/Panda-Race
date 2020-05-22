@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CloudFollow : MonoBehaviour {
     public float speed;
-    public Camera camera;
+    public Camera Camera;
     private Transform cameraTransform;
 
     private Transform[] children;
@@ -13,8 +13,8 @@ public class CloudFollow : MonoBehaviour {
 
     void Start() {
         children = GetComponentsInChildren<Transform>().Where(ch => ch.gameObject != gameObject).ToArray<Transform>();
-        cameraSize = camera.GetComponent<CameraFollowSetup>().zoom;
-        cameraTransform = camera.GetComponent<Transform>();
+        cameraSize = Camera.GetComponent<CameraFollowSetup>().zoom;
+        cameraTransform = Camera.GetComponent<Transform>();
         speed /= 100;
         y = transform.position.y;
         z = transform.position.z;

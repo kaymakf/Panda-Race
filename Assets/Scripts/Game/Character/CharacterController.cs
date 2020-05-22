@@ -3,18 +3,23 @@
 public class CharacterController : MonoBehaviour {
     public float moveSpeed = 7f;
     public float jumpVelocity = 14f;
+    public float maxMoveSpeed = 16f;
+    public float moveSpeedIncrement = .01f;
 
     public LayerMask platformsLayerMask;
     protected Rigidbody2D rigidbody2d;
     protected BoxCollider2D boxCollider2d;
+    protected Animator runAnim;
 
     protected ServerConnection Connection;
+    private Vector2 velocityVector = new Vector2();
 
     public bool jump { get; set; }
 
     void Awake() {
         rigidbody2d = transform.GetComponent<Rigidbody2D>();
         boxCollider2d = transform.GetComponent<BoxCollider2D>();
+        runAnim = transform.GetComponent<Animator>();
     }
 
     void Start() {
@@ -27,6 +32,16 @@ public class CharacterController : MonoBehaviour {
     }
 
     protected void HandleMovement() {
-        rigidbody2d.velocity = new Vector2(moveSpeed, rigidbody2d.velocity.y);
+        velocityVector.Set(moveSpeed, rigidbody2d.velocity.y);
+        rigidbody2d.velocity = velocityVector;
+        AdjustSpeed();
+    }
+
+    private void AdjustSpeed() {
+        if (GlobalModel.GameFinished)
+            moveSpeed -= moveSpeed > 0.5f ? moveSpeedIncrement * 8f : 0;
+        else if (moveSpeed < maxMoveSpeed)
+            moveSpeed += moveSpeedIncrement;
+        runAnim.SetFloat("RunSpeed", moveSpeed / 21f + .7f);
     }
 }

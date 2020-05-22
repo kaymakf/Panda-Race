@@ -8,10 +8,12 @@ public class CameraFollow : MonoBehaviour {
     private Camera myCamera;
     private Func<Vector3> GetCameraFollowPositionFunc;
     private Func<float> GetCameraZoomFunc;
+    private float xOffset;
 
-    public void Setup(Func<Vector3> GetCameraFollowPositionFunc, Func<float> GetCameraZoomFunc) {
+    public void Setup(Func<Vector3> GetCameraFollowPositionFunc, Func<float> GetCameraZoomFunc, float xOffset) {
         this.GetCameraFollowPositionFunc = GetCameraFollowPositionFunc;
         this.GetCameraZoomFunc = GetCameraZoomFunc;
+        this.xOffset = xOffset;
     }
 
     private void Start() {
@@ -41,12 +43,12 @@ public class CameraFollow : MonoBehaviour {
 
     private void HandleMovement() {
         if (GetCameraFollowPositionFunc == null) return;
-        Vector3 cameraFollowPosition = GetCameraFollowPositionFunc();
+        Vector3 cameraFollowPosition = GetCameraFollowPositionFunc() + Vector3.left * xOffset;
         cameraFollowPosition.z = transform.position.z;
 
         Vector3 cameraMoveDir = (cameraFollowPosition - transform.position).normalized;
         float distance = Vector3.Distance(cameraFollowPosition, transform.position);
-        float cameraMoveSpeed = 3f;
+        float cameraMoveSpeed = 6f;
 
         if (distance > 0) {
             Vector3 newCameraPosition = transform.position + cameraMoveDir * distance * cameraMoveSpeed * Time.deltaTime;

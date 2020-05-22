@@ -4,6 +4,7 @@ using UnityEngine;
 using Nakama;
 using Nakama.TinyJson;
 using System.Collections.Generic;
+using System.Collections;
 
 public class ServerConnection : MonoBehaviour {
 	private const string Host = "ec2-52-57-140-254.eu-central-1.compute.amazonaws.com";
@@ -142,11 +143,21 @@ public class ServerConnection : MonoBehaviour {
                 }
                 IsMatchReady = true;
             };
-            matchticket = await ServerConnection.Instance.Socket.AddMatchmakerAsync(query, minCount, maxCount);
+
+			ServerConnection.Instance.Socket.ReceivedMatchPresence += presenceEvent => {
+				if (presenceEvent.Leaves != null && (presenceEvent.Leaves as IList).Count != 0) {
+					Debug.Log("Opponent Left the game...");
+					Instance.Socket.LeaveMatchAsync(Match);
+					CancelSearch();
+                }
+			};
+
+			matchticket = await ServerConnection.Instance.Socket.AddMatchmakerAsync(query, minCount, maxCount);
         }
 
         public void CancelSearch() {
             if (matchticket != null) ServerConnection.Instance.Socket.RemoveMatchmakerAsync(matchticket);
+			IsMatchReady = false;
         }
     }
 }
