@@ -7,14 +7,15 @@ public class CameraFollowSetup : MonoBehaviour {
     public Transform followTransform;
     public float zoom;
     public float xOffset = -8f;
+    public float yOffset = -8f;
 
     private void Start() {
         if (followTransform == null) {
             Debug.LogError("followTransform is null! Intended?");
-            cameraFollow.Setup(() => Vector3.zero, () => zoom, xOffset);
+            cameraFollow.Setup(() => Vector3.zero, () => zoom, xOffset, yOffset);
         }
         else {
-            cameraFollow.Setup(() => followTransform.position, () => zoom, xOffset);
+            cameraFollow.Setup(() => followTransform.position, () => zoom, xOffset, yOffset);
         }
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 public class CloudFollow : MonoBehaviour {
     public float speed;
     public Camera Camera;
+    public bool RespawnChildren = false;
     private Transform cameraTransform;
 
     private Transform[] children;
@@ -21,16 +22,17 @@ public class CloudFollow : MonoBehaviour {
     }
 
     void Update() {
-        //if (transform.position.x < cameraTransform.position.x) {
-            newPosition.Set(transform.position.x + speed, y, z);
-            transform.position = newPosition;
-        //}
+        newPosition.Set(transform.position.x + speed, y, z);
+        transform.position = newPosition;
 
-        for (int i = 0; i < children.Length; i++) {
-            if (children[i].position.x < cameraTransform.position.x - cameraSize * 2)
-                children[i].position = new Vector3(cameraTransform.position.x + cameraSize * 2, children[i].position.y, children[i].position.z);
-            else if(children[i].position.x > cameraTransform.position.x + cameraSize * 2)
-                children[i].position = new Vector3(cameraTransform.position.x - cameraSize * 2, children[i].position.y, children[i].position.z);
+        if (RespawnChildren) {
+            for (int i = 0; i < children.Length; i++) {
+                if (children[i].position.x < cameraTransform.position.x - cameraSize * 4)
+                    children[i].position = new Vector3(cameraTransform.position.x + cameraSize * 4, children[i].position.y, children[i].position.z);
+                else if (children[i].position.x > cameraTransform.position.x + cameraSize * 4)
+                    children[i].position = new Vector3(cameraTransform.position.x - cameraSize * 4, children[i].position.y, children[i].position.z);
+            }
         }
+
     }
 }

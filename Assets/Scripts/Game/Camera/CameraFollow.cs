@@ -9,11 +9,13 @@ public class CameraFollow : MonoBehaviour {
     private Func<Vector3> GetCameraFollowPositionFunc;
     private Func<float> GetCameraZoomFunc;
     private float xOffset;
+    private float yOffset;
 
-    public void Setup(Func<Vector3> GetCameraFollowPositionFunc, Func<float> GetCameraZoomFunc, float xOffset) {
+    public void Setup(Func<Vector3> GetCameraFollowPositionFunc, Func<float> GetCameraZoomFunc, float xOffset, float yOffset) {
         this.GetCameraFollowPositionFunc = GetCameraFollowPositionFunc;
         this.GetCameraZoomFunc = GetCameraZoomFunc;
         this.xOffset = xOffset;
+        this.yOffset = yOffset;
     }
 
     private void Start() {
@@ -43,7 +45,7 @@ public class CameraFollow : MonoBehaviour {
 
     private void HandleMovement() {
         if (GetCameraFollowPositionFunc == null) return;
-        Vector3 cameraFollowPosition = GetCameraFollowPositionFunc() + Vector3.left * xOffset;
+        Vector3 cameraFollowPosition = GetCameraFollowPositionFunc() + Vector3.left * xOffset + Vector3.down * yOffset;
         cameraFollowPosition.z = transform.position.z;
 
         Vector3 cameraMoveDir = (cameraFollowPosition - transform.position).normalized;
