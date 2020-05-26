@@ -26,7 +26,7 @@ public class CloudFollow : MonoBehaviour {
         z = transform.position.z;
     }
 
-    void Update() {
+    void FixedUpdate() {
         newPosition.Set(transform.position.x + speed * targetRigidbody.velocity.x / 10, y, z);
         transform.position = newPosition;
 

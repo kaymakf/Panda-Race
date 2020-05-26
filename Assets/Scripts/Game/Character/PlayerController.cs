@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : CharacterController {
 
-    void Start() {
+    void OnEnable() {
         StartCoroutine(SendPosition());
     }
 

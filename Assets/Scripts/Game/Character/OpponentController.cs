@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class OpponentController : CharacterController {
     private Vector3 newPosition = new Vector3();
@@ -9,9 +10,11 @@ public class OpponentController : CharacterController {
             rigidbody2d.velocity = Vector2.up * jumpVelocity;
         }
 
-        if (GameController.recievedPositions.Count > 0)
-            SetPosition(GameController.recievedPositions.Dequeue());
-
+        if (GameController.recievedPositions.Count > 0) {
+            var pos = GameController.recievedPositions.Dequeue();
+            if (Math.Abs(pos.Item1 - transform.position.x) > 1.5f && Math.Abs(pos.Item2 - transform.position.y) > 1.5f)
+                SetPosition(pos);
+        }
         HandleMovement();
     }
 
