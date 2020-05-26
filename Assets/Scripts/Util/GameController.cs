@@ -8,9 +8,10 @@ public static class GameController {
     public const int ACTION_JUMP = 1;
     public const int ACTION_PICKED_CHARACTER = 2;
     public const int ACTION_READY = 3;
-    public const int ACTION_LEVEL_GENERATED = 4;
+    public const int ACTION_GROUND_GENERATED = 4;
     public const int ACTION_POSITION_UPDATE = 5;
     public const int ACTION_GAME_OVER = 6;
+    public const int ACTION_OBSTACLES_GENERATED = 7;
 
     public static Queue<(float, float)> recievedJumps = new Queue<(float,float)>();
     public static Queue<(float, float)> recievedPositions = new Queue<(float, float)>();
@@ -33,7 +34,7 @@ public static class GameController {
             case ACTION_READY:
                 GlobalModel.OppenentReady = true;
                 break;
-            case ACTION_LEVEL_GENERATED:
+            case ACTION_GROUND_GENERATED:
                 GlobalModel.GeneratedSplinePoints = content.FromJson<List<(float, float)>>();
                 break;
             case ACTION_POSITION_UPDATE:
@@ -41,6 +42,9 @@ public static class GameController {
                 break;
             case ACTION_GAME_OVER:
                 GlobalModel.RecievedWinner = int.Parse(content);
+                break;
+            case ACTION_OBSTACLES_GENERATED:
+                GlobalModel.GeneratedObstaclePositions = content.FromJson<List<(float, int)>>();
                 break;
             default:
                 Debug.LogFormat("User '{0}'' sent '{1}'", newState.UserPresence.Username, content);

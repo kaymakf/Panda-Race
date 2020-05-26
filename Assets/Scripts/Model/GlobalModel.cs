@@ -15,6 +15,8 @@ public static class GlobalModel {
     public static void SetMyCharacter(int charCode) => MyCharacter = charCode;
 
     public static List<(float, float)> GeneratedSplinePoints; //Ground control points
+    public static List<(float, int)> GeneratedObstaclePositions; //Obstacles' x positions and types
+
     public static bool GameFinished = false;
     public static int RecievedWinner = -1;
 
@@ -28,9 +30,20 @@ public static class GlobalModel {
                 return -1;
         }
     }
+    public static string CharacterName(int id) {
+        switch (id) {
+            case CHARACTER_CHICK:
+                return "Chick";
+            case CHARACTER_CAT:
+                return "Cat";
+            default:
+                return "";
+        }
+    }
 
     public static void ResetGameFlags() {
         GeneratedSplinePoints = null;
+        GeneratedObstaclePositions = null;
         Opponent = null;
         GameFinished = false;
         OppenentReady = false;

@@ -6,17 +6,24 @@ using UnityEngine;
 
 public class PreGameController : UIScene {
     public GameObject GameplayContainer;
-    public GameObject Ground;
     public GameObject PickAvatarDialog;
     public LevelGenerator Level;
     public TextMeshProUGUI[] Texts;
     public CameraFollowSetup CameraSetup;
+    public SpriteRenderer Background;
 
     public float CountDown = 5f;
 
+    void Awake() {
+        //Lock fps
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 60;
+    }
+
     void Start() {
         GameplayContainer.SetActive(false);
-        Ground.SetActive(false);
+        Background.sortingOrder = 9;
+        EnterScene();
         StartCoroutine(TimeCount());
     }
 
@@ -26,7 +33,6 @@ public class PreGameController : UIScene {
     }
 
     private IEnumerator TimeCount() {
-        EnterScene();
         yield return new WaitForSeconds(.3f);
         OpenDialog(PickAvatarDialog);
         yield return new WaitUntil(() => GlobalModel.MyCharacter != -1);
@@ -49,8 +55,8 @@ public class PreGameController : UIScene {
     private IEnumerator StartGameplay() {
         yield return new WaitUntil(() => GlobalModel.OppenentReady);
         CloseDialog(PickAvatarDialog);
-        Ground.SetActive(true);
         SetCharacterControllers();
+        Background.sortingOrder = -105;
         GameplayContainer.SetActive(true);
     }
 
