@@ -37,7 +37,7 @@ public class EndGameController : UIScene
     private IEnumerator SetFlagPosition() {
         yield return new WaitUntil(() => GlobalModel.GeneratedSplinePoints != null);
         (float, float) pos = GlobalModel.GeneratedSplinePoints[((Level.LevelLength - 50) / Level.PointFreq) - 1];
-        transform.position = new Vector2(pos.Item1 - 15f, pos.Item2 - 9.5f);
+        transform.position = new Vector2(pos.Item1 - 7f, pos.Item2 - 9.5f);
     }
 
     private IEnumerator SetExplosionPosition() {

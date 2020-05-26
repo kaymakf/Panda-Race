@@ -26,10 +26,9 @@ public static class GameController {
         switch (newState.OpCode) {
             case ACTION_JUMP:
                 recievedJumps.Enqueue(content.FromJson<(float, float)>());
-                Debug.Log("Jump!!!");
                 break;
             case ACTION_PICKED_CHARACTER:
-                GlobalModel.SetMyCharacter((int.Parse(content) + 1) % 2);
+                GlobalModel.SetMyCharacter((content.FromJson<int>() + 1) % 2);
                 break;
             case ACTION_READY:
                 GlobalModel.OppenentReady = true;
@@ -53,8 +52,10 @@ public static class GameController {
     };
 
     public static void SendState(int opCode, string state) {
-        if (ServerConnection.Instance.Socket == null || ServerConnection.Instance.matchmaker.Match == null)
+        if (ServerConnection.Instance.Socket == null || ServerConnection.Instance.matchmaker.Match == null) {
+            Debug.Log("SendState error.");
             return;
+        }
         ServerConnection.Instance.Socket.SendMatchStateAsync(
             ServerConnection.Instance.matchmaker.Match.Id,
             opCode,
