@@ -1,0 +1,219 @@
+fileFormatVersion: 2
+guid: 380e91f0139ece94c8eab74d7ded568a
+ScriptedImporter:
+  fileIDToRecycleName:
+    100000: character-cat_GO/character-cat_GO
+    100002: character-cat_GO/character-cat_GO/body
+    100004: character-cat_GO/character-cat_GO/leg_back_cat
+    100006: character-cat_GO/character-cat_GO/leg_front_cat
+    400000: character-cat_GO/character-cat_GO/Transform
+    400002: character-cat_GO/character-cat_GO/body/Transform
+    400004: character-cat_GO/character-cat_GO/leg_back_cat/Transform
+    400006: character-cat_GO/character-cat_GO/leg_front_cat/Transform
+    2800000: character-cat
+    21200000: character-cat_GO/character-cat_GO/body/SpriteRenderer
+    21200002: character-cat_GO/character-cat_GO/leg_back_cat/SpriteRenderer
+    21200004: character-cat_GO/character-cat_GO/leg_front_cat/SpriteRenderer
+    21300000: 8665b890c72984d42b3b8c0d570c921d
+    21300002: a6fa644ca34648848a671d01478c0ec5
+    21300004: df5a44278f4cbc649b78120178e1ba05
+    100100000: character-cat_GO
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: b2a9591990af98743ba3ff7cf1000886, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 1
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    isReadable: 0
+    streamingMipmaps: 1
+    streamingMipmapsPriority: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 32
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+  spriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 0, y: 0}
+  mosaicSpriteImportData: []
+  rigSpriteImportData:
+  - name: leg_front_cat
+    originalName: 
+    pivot: {x: 0, y: 1}
+    alignment: 1
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 775
+      y: 4
+      width: 105
+      height: 333
+    spriteID: 8665b890c72984d42b3b8c0d570c921d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 462, y: -47}
+  - name: body
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 7
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 763
+      height: 853
+    spriteID: a6fa644ca34648848a671d01478c0ec5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 2, y: -313}
+  - name: leg_back_cat
+    originalName: 
+    pivot: {x: 0, y: 1}
+    alignment: 1
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 775
+      y: 345
+      width: 105
+      height: 333
+    spriteID: df5a44278f4cbc649b78120178e1ba05
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 269, y: 294}
+  platformSettings:
+  - name: Default
+    overridden: 1
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  mosaicLayers: 1
+  documentPivot: {x: 0, y: 0}
+  documentAlignment: 7
+  importHiddenLayers: 0
+  importedTextureWidth: 1024
+  importedTextureHeight: 1024
+  documentSize: {x: 867, y: 1180}
+  textureActualWidth: 1024
+  textureActualHeight: 1024
+  spritePackingTag: 
+  resliceFromLayer: 0
+  characterMode: 1
+  mosaicPSDLayers: []
+  rigPSDLayers:
+  - name: leg_front_cat
+    spriteName: leg_front_cat
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 8665b890c72984d42b3b8c0d570c921d
+    layerID: 39
+    mosaicPosition: {x: 775, y: 4}
+  - name: body
+    spriteName: body
+    isGroup: 0
+    parentIndex: -1
+    spriteID: a6fa644ca34648848a671d01478c0ec5
+    layerID: 57
+    mosaicPosition: {x: 4, y: 4}
+  - name: leg_back_cat
+    spriteName: leg_back_cat
+    isGroup: 0
+    parentIndex: -1
+    spriteID: df5a44278f4cbc649b78120178e1ba05
+    layerID: 41
+    mosaicPosition: {x: 775, y: 345}
+  characterData:
+    bones: []
+    parts: []
+    dimension: {x: 0, y: 0}
+  boneGOs: []
+  generateGOHierarchy: 0
+  textureAssetName: character-cat
+  prefabAssetName: character-cat_GO
